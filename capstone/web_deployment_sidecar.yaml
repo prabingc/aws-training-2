@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: events-web
+  name: events-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: events-web
+      ver: v2.0
+  template:
+    metadata:
+      labels:
+        app: events-web
+        ver: v2.0
+    spec:
+      containers:
+        - name: events-web
+          image: 822875510783.dkr.ecr.us-east-2.amazonaws.com/prod/events-website:v2.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER
+              value: "http://events-api-svc:8082"
+        - name: debug
+          image: nicolaka/netshoot
+          command: ["sleep", "infinity"]
+          securityContext:
+            runAsUser: 0
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

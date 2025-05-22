@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ labels:
+   app: events-api
+ name: events-api
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: events-api
+     ver: v1.0
+ template:
+   metadata:
+     labels:
+       app: events-api
+       ver: v1.0
+   spec:
+     containers:
+     - image: <REPLACE-ME>/events-api:v1.0
+       name: events-api
+       ports:
+       - containerPort: 8082
+       env:
+        - name: DBHOST
+          value: "database-server-mariadb.default"
+        - name: DBUSER
+          value: "root"
+        - name: DBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-server-mariadb
+              key: mariadb-root-password
+        - name: DBDATABASE
+          value: "events_db" 

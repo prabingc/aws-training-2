@@ -9,12 +9,12 @@ spec:
  selector:
    matchLabels:
      app: events-web
-     ver: v2.0 
+     ver: v1.0 
  template:
    metadata:
      labels:
        app: events-web
-       ver: v2.0
+       ver: v1.0
    spec:
      containers:
      - image: <REPLACE-ME>/events-website:v1.0
