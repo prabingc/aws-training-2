@@ -45,7 +45,7 @@
 
 	Create 2 repo in "Amazon ECR" with events-api and events-website and copy the URI for each.
 
-	# from eventsappstart/events-api
+	* from eventsappstart/events-api
 	touch .dockerignore
 	curl -o Dockerfile https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/dockerfile_api
 	docker build . -t events-api:v1.0
@@ -54,7 +54,7 @@
 	docker tag events-api:v1.0 <uri for events-api>:v1.0
 	docker push <uri for events-api>:v1.0
 
-	# from eventsappstart/events-website
+	* from eventsappstart/events-website
 	cd ../events-website
 	touch .dockerignore
 	curl -o Dockerfile https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/dockerfile_website
