@@ -91,6 +91,7 @@ Steps for Final project
 
 
 6) Deploying apps to EKS clusters.
+   ```
    mkdir ../kubernetes-config
    cd ../kubernetes-config
    curl -o api_deployment.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_deployment.yaml
@@ -114,8 +115,8 @@ Steps for Final project
    	kubectl get pods
    	kubeclt get svc
 
-   	Browse to http://{dns for events-web-svc}
-
+   	Browse to http://<dns for events-web-svc>
+    ```
 7) Testing rolling updates
 	Update the "web_deployment.yaml" to use v2.0 or the image
 
