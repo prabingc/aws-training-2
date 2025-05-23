@@ -100,7 +100,7 @@ Steps for Final project
    curl -o web_deployment.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/web_deployment.yaml
    		update the line 20 for image with one from previous step
 
-   curl -o api_service.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_service.yaml
+   curl -o api_service.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api-service.yaml
    curl -o web_service.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/web_service.yaml
 
 
