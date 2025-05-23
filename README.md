@@ -8,6 +8,7 @@ Steps for Final project
 	- Node
 	- Terraform
 	- Helm
+
 	Also this instance will have to have Instance profile associated that will permit all the actions that we are about to do. Alternatively you can create a IAM user with correct permission and configure the instance using "aws configure".
 
 	Please use the latest Amazon Linux AMI, recommended instance type is t3.small (at minimum) with 20GB EBS attached. You can use following userdata file to install above at launch.
@@ -25,11 +26,13 @@ Steps for Final project
    This will take sometime so keep this session active and launch new session for remaining tasks.
 
 3) Creating Docker image with app.
-	 mkdir ~/capstone_eventsapp
-	 cd ~/capstone_eventsap
-     git clone https://github.com/msutton150/eventsappstart.git
-
+    ```
+    mkdir ~/capstone_eventsapp
+    cd ~/capstone_eventsap
+    git clone https://github.com/msutton150/eventsappstart.git
+   ```
 4) Create docker images with apps.
+    ```
 	cd eventsappstart/events-api
 
 	touch .dockerignore
@@ -59,9 +62,9 @@ Steps for Final project
 	#to test the images
 	docker run -d -p 8082:8082 events-api:v1.0
 	docker run -d -p 8080:8080 events-website:v1.0
-
+    
 	You should be able to test by browsing to public IP of the deployment-server using http://{ip}:8080 or http://{ip}:8082
-
+   ```
 5) Export image to ECR; you can create repo in any region but for following instruction assume you are using 'US-East-1'.
 
 	Create 2 repo in "Amazon ECR" with events-api and events-website and copy the URI for each.
