@@ -149,10 +149,12 @@ Steps for Final project
 ```
 9) Integrating api to use Database
 	Download the new api_deployment inside kubernetes-config folder
-	``` curl -o api_deployment_v1.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_deployment_v1.yaml ```
+	``` 
+    curl -o api_deployment_v1.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_deployment_v1.yaml 
    		update the line 20 for image with one from step 5
 
    	kubectl apply -f api_deployment_v1.yaml
 
    	validation:
    	kubectl get pods -> you should see new pod launched for database-server-mariadb-0
+```
