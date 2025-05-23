@@ -41,17 +41,17 @@ Steps for Final project
 	docker build . -t events-website:v1.0
 
 	#
-	*we will be creating 2 version of image to test our rolling updated
+	#we will be creating 2 version of image to test our rolling updated
 	#
-	/#edit homepage to show your name instead of place holder
+	#edit homepage to show your name instead of place holder
 	#
 	vi views/layouts/default.hbs
 	#
-	/#edit line 7 and 16 to some name; Make other edits in this page so as not to mess up HTML
+	#edit line 7 and 16 to some name; Make other edits in this page so as not to mess up HTML
 	#
 	docker build . -t events-website:v2.0
 
-	/#validation
+	#validation
 	docker image
 
 	#to test the images
