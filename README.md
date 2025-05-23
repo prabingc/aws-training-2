@@ -58,29 +58,29 @@ Steps for Final project
 	docker run -d -p 8082:8082 events-api:v1.0
 	docker run -d -p 8080:8080 events-website:v1.0
 
-	You should be able to test by browsing to public IP of the deployment-server using http://<ip>:8080 or http://<ip>:8082
+	You should be able to test by browsing to public IP of the deployment-server using http://{ip}:8080 or http://{ip}:8082
 
 5) Export image to ECR; you can create repo in any region but for following instruction assume you are using 'US-East-1'.
 
 	Create 2 repo in "Amazon ECR" with events-api and events-website and copy the URI for each.
 	cd ../events-api
-	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) <uri for events-api>
-	docker tag events-api:v1.0 <uri for events-api>:v1.0
-	docker push <uri for events-api>:v1.0
+	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) {uri for events-api}
+	docker tag events-api:v1.0 {uri for events-api}:v1.0
+	docker push {uri for events-api}:v1.0
 
 
 	cd ../events-website/
-	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) <uri for events-website>
-	docker tag events-website:v1.0 <uri for events-website>:v1.0
-	docker push <uri for events-website>:v1.0
+	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) {uri for events-website}
+	docker tag events-website:v1.0 {uri for events-website}:v1.0
+	docker push {uri for events-website}:v1.0
 
-	docker tag events-website:v2.0 <uri for events-website>:v2.0
-	docker push <uri for events-website>:v2.0
+	docker tag events-website:v2.0 {uri for events-websit}:v2.0
+	docker push {uri for events-website}:v2.0
 
 	Copy the URI for all 3 images that we have uploaded from EKS console
-	events-api :--> <account>.dkr.ecr.us-east-1.amazonaws.com/events-api:v1.0
-	events-website :--> <account>.dkr.ecr.us-east-1.amazonaws.com/events-website:v1.0
-	events-website :--> <account>.dkr.ecr.us-east-1.amazonaws.com/events-website:v2.0
+	- events-api :--> account_number.dkr.ecr.us-east-1.amazonaws.com/events-api:v1.0
+	- events-website :--> account_number.dkr.ecr.us-east-1.amazonaws.com/events-website:v1.0
+	- events-website :--> account_number.dkr.ecr.us-east-1.amazonaws.com/events-website:v2.0
 
 
 6) Deploying apps to EKS clusters.
@@ -120,7 +120,7 @@ Steps for Final project
 	#validation
 	kubectl get pods --> you will see pods creating and terminaing. 
 
-	if you browse to the  http://<dns for events-web-svc> it will be up entire time; provided it might switch between v1 and v2.. refresh few time until you see only v2 version.
+	if you browse to the  http://{dns for events-web-svc} it will be up entire time; provided it might switch between v1 and v2.. refresh few time until you see only v2 version.
 
 8) Adding database
 	On Deployment server run following
