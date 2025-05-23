@@ -118,6 +118,7 @@ Steps for Final project
    	Browse to http://<dns for events-web-svc>
     ```
 7) Testing rolling updates
+```
 	Update the "web_deployment.yaml" to use v2.0 or the image
 
 	vim web_deployment.yaml 
@@ -129,9 +130,10 @@ Steps for Final project
 	kubectl get pods --> you will see pods creating and terminaing. 
 
 	if you browse to the  http://{dns for events-web-svc} it will be up entire time; provided it might switch between v1 and v2.. refresh few time until you see only v2 version.
-
+```
 8) Adding database
 	On Deployment server run following
+```    
 	- Set the default value for storage class:
 		 kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
@@ -144,10 +146,10 @@ Steps for Final project
 
 	helm list 
 	helm status database-server 
-
+```
 9) Integrating api to use Database
 	Download the new api_deployment inside kubernetes-config folder
-	curl -o api_deployment_v1.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_deployment_v1.yaml
+	``` curl -o api_deployment_v1.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_deployment_v1.yaml ```
    		update the line 20 for image with one from step 5
 
    	kubectl apply -f api_deployment_v1.yaml
