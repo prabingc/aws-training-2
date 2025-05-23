@@ -107,7 +107,7 @@ Steps for Final project
    	kubectl get pods
    	kubeclt get svc
 
-   	Browse to http://<dns for events-web-svc>
+   	Browse to http://{dns for events-web-svc}
 
 7) Testing rolling updates
 	Update the "web_deployment.yaml" to use v2.0 or the image
