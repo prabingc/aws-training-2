@@ -1,3 +1,5 @@
+Steps for Final project
+
 1) Assumption is you have an instance that has following installed; we will call this instance deployment-server.
 	- Docker
 	- Kubernetes
@@ -27,12 +29,29 @@
 
 4) Create docker images with apps.
 	cd eventsappstart/events-api
+
+	touch .dockerignore
+	curl -o Dockerfile https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/dockerfile_api
 	docker build . -t events-api:v1.0
 
 	cd ../events-website/
+	touch .dockerignore
+	curl -o Dockerfile https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/dockerfile_website
+
 	docker build . -t events-website:v1.0
 
-	#validation
+	#
+	*we will be creating 2 version of image to test our rolling updated
+	#
+	/#edit homepage to show your name instead of place holder
+	#
+	vi views/layouts/default.hbs
+	#
+	/#edit line 7 and 16 to some name; Make other edits in this page so as not to mess up HTML
+	#
+	docker build . -t events-website:v2.0
+
+	/#validation
 	docker image
 
 	#to test the images
@@ -44,44 +63,24 @@
 5) Export image to ECR; you can create repo in any region but for following instruction assume you are using 'US-East-1'.
 
 	Create 2 repo in "Amazon ECR" with events-api and events-website and copy the URI for each.
-
-	* from eventsappstart/events-api
-	touch .dockerignore
-	curl -o Dockerfile https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/dockerfile_api
-	docker build . -t events-api:v1.0
-
+	cd ../events-api
 	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) <uri for events-api>
 	docker tag events-api:v1.0 <uri for events-api>:v1.0
 	docker push <uri for events-api>:v1.0
 
-	* from eventsappstart/events-website
-	cd ../events-website
-	touch .dockerignore
-	curl -o Dockerfile https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/dockerfile_website
 
-	#
-	#we will be creating 2 version of image to test our rolling updated
-	#
-	docker build . -t events-website:v1.0
+	cd ../events-website/
 	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) <uri for events-website>
 	docker tag events-website:v1.0 <uri for events-website>:v1.0
 	docker push <uri for events-website>:v1.0
 
-	#
-	#edit homepage to show your name instead of place holder
-	#
-	vi views/layouts/default.hbs
-
-	#
-	#edit line 7 and 16 to some name; Make other edits in this page so as not to mess up HTML
-	#
-	docker build . -t events-website:v2.0
 	docker tag events-website:v2.0 <uri for events-website>:v2.0
 	docker push <uri for events-website>:v2.0
 
-	Copy the URI for both of the images that we have uploaded from EKS console
+	Copy the URI for all 3 images that we have uploaded from EKS console
 	events-api :--> <account>.dkr.ecr.us-east-1.amazonaws.com/events-api:v1.0
 	events-website :--> <account>.dkr.ecr.us-east-1.amazonaws.com/events-website:v1.0
+	events-website :--> <account>.dkr.ecr.us-east-1.amazonaws.com/events-website:v2.0
 
 
 6) Deploying apps to EKS clusters.
@@ -93,9 +92,15 @@
    curl -o web_deployment.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/web_deployment.yaml
    		update the line 20 for image with one from previous step
 
+   curl -o api_service.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/api_service.yaml
+   curl -o web_service.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/web_service.yaml
+
+
    	kubectl apply -f api_deployment.yaml
    	kubectl apply -f web_deployment.yaml
-   	kubectl apply -f web-service.yaml
+   	kubectl apply -f api_service.yaml
+   	kubectl apply -f web_service.yaml
+
    	
    	#validation
    	kubectl get deployments
