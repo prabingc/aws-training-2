@@ -11,14 +11,16 @@ Steps for Final project
 	Also this instance will have to have Instance profile associated that will permit all the actions that we are about to do. Alternatively you can create a IAM user with correct permission and configure the instance using "aws configure".
 
 	Please use the latest Amazon Linux AMI, recommended instance type is t3.small (at minimum) with 20GB EBS attached. You can use following userdata file to install above at launch.
-	curl -O https://raw.githubusercontent.com/prabingc/aws-training-2/blob/main/capstone/userdata.txt
+	> curl -O https://raw.githubusercontent.com/prabingc/aws-training-2/blob/main/capstone/userdata.txt
 
 2) Launch EKS cluster
    Connect to the deployment-server using "EC2 instance connect" or "Session Manager" or SSH client.
+   ```
    mkdir ekscluster
    cd ekscluster
    curl -O https://raw.githubusercontent.com/prabingc/aws-training-2/main/capstone/cluster.yaml
    eksctl create cluster -f cluster.yaml
+   ```
 
    This will take sometime so keep this session active and launch new session for remaining tasks.
 
@@ -63,6 +65,7 @@ Steps for Final project
 5) Export image to ECR; you can create repo in any region but for following instruction assume you are using 'US-East-1'.
 
 	Create 2 repo in "Amazon ECR" with events-api and events-website and copy the URI for each.
+    ```
 	cd ../events-api
 	docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) {uri for events-api}
 	docker tag events-api:v1.0 {uri for events-api}:v1.0
@@ -76,6 +79,7 @@ Steps for Final project
 
 	docker tag events-website:v2.0 {uri for events-websit}:v2.0
 	docker push {uri for events-website}:v2.0
+    ```
 
 	Copy the URI for all 3 images that we have uploaded from EKS console
 	- events-api :--> account_number.dkr.ecr.us-east-1.amazonaws.com/events-api:v1.0
