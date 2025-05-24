@@ -158,3 +158,22 @@ Steps for Final project
    	validation:
    	kubectl get pods -> you should see new pod launched for database-server-mariadb-0
 ```
+
+10) Running sidecar containers
+	The api and web containers do not come with even basic of troubleshooting tools as ping, curl etc.
+	One solution is to install these utilites while buliding the container image. Alternativley you can run another container in same pod.
+	```
+	curl -o web_deployment_sidecar.yaml https://raw.githubusercontent.com/prabingc/aws-training-2/blob/main/capstone/web_deployment_sidecar.yaml
+	```
+
+	If you compare this with web_deployment.yaml than you can that we have 2 containers under template -> spec -> containers
+
+	To validate run following command, you can run without grep but since I am only interested in container name I choose to use grep.
+	```
+	kubectl describe pods <pod_name>  | grep -B 1 "Container ID"
+	```
+
+	To login and run troubleshooting commands:
+	```
+	kubectl exec -it <pod_name> -c <container_name> -- /bin/bash
+	```
