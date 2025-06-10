@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: prabin-pipeline-cluster
+  name: prabin-cluster
   region: us-east-2
   version: "1.32"
 
